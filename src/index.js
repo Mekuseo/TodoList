@@ -1,31 +1,31 @@
 /* eslint-disable no-use-before-define */
-import "./style.css";
+import './style.css';
 
-const taskInput = document.getElementById("task");
-const addTaskButton = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
-const removeCompletedButton = document.getElementById("remove-completed");
+const taskInput = document.getElementById('task');
+const addTaskButton = document.getElementById('add-task');
+const taskList = document.getElementById('task-list');
+const removeCompletedButton = document.getElementById('remove-completed');
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 window.onload = () => loadTasks();
 
-addTaskButton.addEventListener("click", (e) => {
+addTaskButton.addEventListener('click', (e) => {
   e.preventDefault();
   if (!taskInput.value) return;
   addTask(taskInput.value);
-  taskInput.value = "";
+  taskInput.value = '';
 });
 
-taskList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-task")) {
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-task')) {
     deleteTask(e.target.parentElement);
-  } else if (e.target.classList.contains("task-description")) {
+  } else if (e.target.classList.contains('task-description')) {
     toggleCompleted(e.target);
   }
 });
 
-removeCompletedButton.addEventListener("click", removeCompletedTasks);
+removeCompletedButton.addEventListener('click', removeCompletedTasks);
 
 function addTask(description) {
   const task = {
@@ -40,25 +40,25 @@ function addTask(description) {
 }
 
 function renderTask(task) {
-  const li = document.createElement("li");
+  const li = document.createElement('li');
   li.innerHTML = `
-    <input type="checkbox" class="checkbox" ${task.completed ? "checked" : ""}>
-    <span class="task-description ${task.completed ? "completed" : ""}">${
-    task.description
-  }</span>
+    <input type="checkbox" class="checkbox" ${task.completed ? 'checked' : ''}>
+    <span class="task-description ${task.completed ? 'completed' : ''}">${
+  task.description
+}</span>
     <span class="delete-task">X</span>
   `;
-  li.classList.add("task");
+  li.classList.add('task');
   li.index = task.index;
   taskList.appendChild(li);
 
-  const checkbox = li.querySelector(".checkbox");
-  checkbox.addEventListener("change", (e) => {
+  const checkbox = li.querySelector('.checkbox');
+  checkbox.addEventListener('change', (e) => {
     const { index } = li;
     tasks[index].completed = e.target.checked;
-    li.querySelector(".task-description").classList.toggle(
-      "completed",
-      e.target.checked
+    li.querySelector('.task-description').classList.toggle(
+      'completed',
+      e.target.checked,
     );
     saveTasks();
   });
@@ -67,9 +67,8 @@ function renderTask(task) {
 function toggleCompleted(taskEl) {
   const { index } = taskEl.parentElement;
   tasks[index].completed = !tasks[index].completed;
-  taskEl.classList.toggle("completed");
-  taskEl.parentElement.querySelector(".checkbox").checked =
-    tasks[index].completed;
+  taskEl.classList.toggle('completed');
+  taskEl.parentElement.querySelector('.checkbox').checked = tasks[index].completed;
   saveTasks();
 }
 
@@ -81,8 +80,8 @@ function removeCompletedTasks() {
     // check if the task is completed
     if (
       taskList.children[i]
-        .querySelector(".task-description")
-        .classList.contains("completed")
+        .querySelector('.task-description')
+        .classList.contains('completed')
     ) {
       taskList.removeChild(taskList.children[i]);
     }
@@ -107,7 +106,7 @@ function updateIndex() {
 }
 
 function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function loadTasks() {
