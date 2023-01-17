@@ -1,33 +1,32 @@
-import "./style.css";
+/* eslint-disable no-use-before-define */
+import './style.css';
 
-const taskInput = document.getElementById("task");
-const addTaskButton = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
+const taskInput = document.getElementById('task');
+const addTaskButton = document.getElementById('add-task');
+const taskList = document.getElementById('task-list');
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-window.onload = function(){
-    loadTasks();
-}
+window.onload = () => loadTasks();
 
-addTaskButton.addEventListener("click", function(e) {
+addTaskButton.addEventListener('click', (e) => {
   e.preventDefault();
   if (!taskInput.value) return;
   addTask(taskInput.value);
-  taskInput.value = "";
+  taskInput.value = '';
 });
 
-taskList.addEventListener("click", function(e) {
-  if (e.target.classList.contains("delete-task")) {
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-task')) {
     deleteTask(e.target.parentElement);
-  } else if (e.target.classList.contains("task-description")) {
+  } else if (e.target.classList.contains('task-description')) {
     toggleCompleted(e.target);
   }
 });
 
 function addTask(description) {
   const task = {
-    description: description,
+    description,
     completed: false,
     index: tasks.length,
   };
@@ -38,25 +37,27 @@ function addTask(description) {
 }
 
 function renderTask(task) {
-  const li = document.createElement("li");
+  const li = document.createElement('li');
   li.innerHTML = `
-    <span class="task-description ${task.completed ? "completed" : ""}">${task.description}</span>
+    <span class="task-description ${task.completed ? 'completed' : ''}">${
+  task.description
+}</span>
     <span class="delete-task">X</span>
   `;
-  li.classList.add("task");
+  li.classList.add('task');
   li.index = task.index;
   taskList.appendChild(li);
 }
 
 function toggleCompleted(taskEl) {
-  const index = taskEl.parentElement.index;
+  const { index } = taskEl.parentElement;
   tasks[index].completed = !tasks[index].completed;
-  taskEl.classList.toggle("completed");
+  taskEl.classList.toggle('completed');
   saveTasks();
 }
 
 function deleteTask(li) {
-  const index = li.index;
+  const { index } = li;
   tasks.splice(index, 1);
   li.remove();
   updateIndex();
@@ -70,7 +71,7 @@ function updateIndex() {
 }
 
 function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function loadTasks() {
