@@ -77,6 +77,7 @@ export function deleteTask(li) {
   tasks.splice(index - 1, 1);
   taskList.innerHTML = '';
   tasks.forEach(renderTask);
+  updateIndex();
   saveTasks();
 }
 
