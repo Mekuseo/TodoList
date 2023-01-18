@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import './style.css';
 import {
-  addTask, deleteTask, toggleCompleted, removeCompletedTasks, loadTasks,
+  addTask, deleteTask, toggleCompleted, removeCompletedTasks, loadTasks, editTask,
 } from './functionality.js';
 
 const taskInput = document.getElementById('task');
@@ -23,6 +23,8 @@ taskList.addEventListener('click', (e) => {
     deleteTask(e.target.parentElement);
   } else if (e.target.classList.contains('task-description')) {
     toggleCompleted(e.target);
+  } else if (e.target.classList.contains('edit-task')) {
+    editTask(e.target.parentElement);
   }
 });
 
