@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import './style.css';
+
 import {
   addTask, deleteTask, loadTasks, editTask, removeCompletedTasks,
 } from './functionality.js';
