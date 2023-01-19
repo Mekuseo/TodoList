@@ -1,8 +1,10 @@
 /* eslint-disable no-use-before-define */
 import './style.css';
+
 import {
-  addTask, deleteTask, toggleCompleted, removeCompletedTasks, loadTasks, editTask,
+  addTask, deleteTask, loadTasks, editTask, removeCompletedTasks,
 } from './functionality.js';
+import toggleCompleted from './interactive.js';
 
 const taskInput = document.getElementById('task');
 const addTaskButton = document.getElementById('add-task');

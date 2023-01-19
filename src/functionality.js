@@ -87,24 +87,6 @@ export function loadTasks() {
   tasks.forEach(renderTask);
 }
 
-export function removeCompletedTasks() {
-  tasks = tasks.filter((task) => !task.completed);
-  taskList.innerHTML = '';
-  tasks.forEach(renderTask);
-  updateIndex();
-  saveTasks();
-}
-
-export function toggleCompleted(taskEl) {
-  // eslint-disable-next-line no-prototype-builtins
-  if (!taskEl.parentElement.hasOwnProperty('index')) return;
-  const { index } = taskEl.parentElement;
-  tasks[index].completed = !tasks[index].completed;
-  taskEl.classList.toggle('completed');
-  taskEl.parentElement.querySelector('.checkbox').checked = tasks[index].completed;
-  saveTasks();
-}
-
 export function editTask(li) {
   const { index } = li;
   const newDescription = prompt(
@@ -116,4 +98,12 @@ export function editTask(li) {
     li.querySelector('.task-description').innerText = newDescription;
     saveTasks();
   }
+}
+
+export function removeCompletedTasks() {
+  tasks = tasks.filter((task) => !task.completed);
+  taskList.innerHTML = '';
+  tasks.forEach(renderTask);
+  updateIndex();
+  saveTasks();
 }
